@@ -51,6 +51,10 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
 
 - OS: Windows
 - Toolchain: [Rust](https://www.rust-lang.org/tools/install)
+- Build Essentials
+```
+sudo apt update && sudo apt install build-essential pkg-config libssl-dev -y
+```
 - Optional: [Python](https://www.python.org/) (for running a dummy C2 server)
 
 ### 2. 📦 Dependencies
@@ -76,6 +80,4 @@ cargo build --release
 
 ## 🐙 Author
 
-Built by a passionate cybersecurity engineer 💻🔐
-
-Neyrian
+Neyrian ☕🥝
