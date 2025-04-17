@@ -55,7 +55,7 @@ sudo apt install mingw-w64
 
 All dependencies are managed via `Cargo.toml`, including:
 
-- `sysinfo`, `hostname`, `whoami`, `chrono` – system inspection
+- `sysinfo`, `hostname`, `whoami` – system inspection
 - `aes`, `cbc`, `cipher` – encryption
 - `rand`, `dirs` – randomness and directory helpers
 

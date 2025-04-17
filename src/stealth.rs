@@ -2,7 +2,6 @@ use std::{thread, time::Duration};
 use sysinfo::System;
 use whoami;
 use hostname;
-use chrono::Utc;
 
 /// Checks for sandbox indicators.
 pub fn is_sandbox() -> bool {
