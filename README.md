@@ -37,7 +37,7 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
    Files in a specific directory (`C:\Users\Public\Documents`) are encrypted using a randomly generated AES-256 key and IV.
 
 3. **Ransom Note Drop**  
-   A ransom note is created on the desktop with fake BTC address and contact email.
+   A ransom note is created on the desktop.
 
 ---
 
@@ -45,11 +45,16 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
 
 ### 1. 🧪 Requirements
 
-- OS: Windows
+- OS: Linux
 - Toolchain: [Rust](https://www.rust-lang.org/tools/install)
 - Build Essentials
 ```
 sudo apt update && sudo apt install build-essential pkg-config libssl-dev -y
+```
+- Cross-Compiler
+```
+rustup target add x86_64-pc-windows-gnu
+sudo apt install mingw-w64
 ```
 
 ### 2. 📦 Dependencies
@@ -57,8 +62,7 @@ sudo apt update && sudo apt install build-essential pkg-config libssl-dev -y
 All dependencies are managed via `Cargo.toml`, including:
 
 - `sysinfo`, `hostname`, `whoami` – system inspection
-- `reqwest`, `serde_json` – C2 HTTP client
-- `aes`, `block-modes` – encryption
+- `aes`, `cbc`, `cipher` – encryption
 - `rand`, `dirs` – randomness and directory helpers
 
 ### 3. 🔨 Compile (Release Mode)
