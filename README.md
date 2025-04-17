@@ -34,7 +34,7 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
    The binary checks for low memory, few CPU cores, known usernames/hostnames, and sleep-skipping.
 
 2. **File Encryption**  
-   Files in a specific directory (`C:\Users\Public\Documents`) are encrypted using a randomly generated AES-256 key and IV.
+   Files in a specific directory are encrypted using a randomly generated AES-256 key and IV.
 
 3. **Ransom Note Drop**  
    A ransom note is created on the desktop.
@@ -53,7 +53,6 @@ sudo apt update && sudo apt install build-essential pkg-config libssl-dev -y
 ```
 - Cross-Compiler
 ```
-rustup target add x86_64-pc-windows-gnu
 sudo apt install mingw-w64
 ```
 
@@ -72,7 +71,9 @@ git clone https://github.com/yourusername/ransomware-poc.git
 cd ransomware-poc
 
 # Compile and strip debug symbols
-cargo build --release
+make
+make windows
+make linux
 ```
 
 ---
