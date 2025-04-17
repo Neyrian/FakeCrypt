@@ -2,7 +2,7 @@
 PROJECT_NAME := FakeCrypt
 
 # Output folder
-DIST_DIR := binOut
+DIST_DIR := bin
 
 # Windows target
 WINDOWS_TARGET := x86_64-pc-windows-gnu
