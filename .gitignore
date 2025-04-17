@@ -1,0 +1,52 @@
+# === Rust general ===
+/target/
+**/*.rs.bk
+**/*.rs.old
+**/*.rs~
+
+# === Cargo files ===
+Cargo.lock
+.cargo/
+.cargo-target/
+
+# === Build output ===
+*.exe
+*.dll
+*.so
+*.dylib
+*.rlib
+
+# === Debug / logs ===
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# === VSCode / IDE ===
+.vscode/
+.idea/
+*.code-workspace
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === C2 testing ===
+c2.log
+*.pcap
+*.har
+
+# === Encrypted blobs / test payloads ===
+*.dat
+*.enc
+*.bin
+
+# === Misc ===
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz

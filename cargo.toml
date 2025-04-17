@@ -1,0 +1,19 @@
+[package]
+name = "ransomware_poc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sysinfo = "0.30"
+whoami = "1.4"
+hostname = "0.3"
+chrono = "0.4"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+serde_json = "1.0"
+aes = "0.8"
+block-modes = "0.8"
+block-padding = "0.2"
+rand = "0.8"
+
+[profile.release]
+strip = "symbols"
