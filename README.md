@@ -2,15 +2,6 @@
 
 > ⚠️ **For educational and ethical red teaming purposes only.** Do not deploy this code on systems without explicit authorization.
 
-## 📚 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Setup & Compilation](#setup--compilation)
-- [Usage](#usage)
-- [Notes for Red Teamers](#notes-for-red-teamers)
-- [Disclaimer](#disclaimer)
-
 ---
 
 ## 📌 Overview
