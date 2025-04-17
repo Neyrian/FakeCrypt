@@ -22,7 +22,6 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
 ## 🔧 Features
 
 - ✅ **Sandbox Detection** — Detects virtual/sandboxed environments using heuristic checks.
-- ✅ **C2 Beacon** — Sends encrypted JSON beacon to a local C2 server (`http://127.0.0.1:8080/beacon`).
 - ✅ **AES File Encryption** — Encrypts files in a target directory using AES-256-CBC.
 - ✅ **Dropped Ransom Note** — Writes a static ransom note to the victim's desktop.
 - ✅ **Debug Symbol Stripping** — Debug symbols are removed in release mode for stealth.
@@ -34,13 +33,10 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
 1. **Sandbox Check**  
    The binary checks for low memory, few CPU cores, known usernames/hostnames, and sleep-skipping.
 
-2. **Beacon to C2 Server**  
-   Sends victim ID, username, and timestamp as a JSON POST request to `http://localhost:8080`.
-
-3. **File Encryption**  
+2. **File Encryption**  
    Files in a specific directory (`C:\Users\Public\Documents`) are encrypted using a randomly generated AES-256 key and IV.
 
-4. **Ransom Note Drop**  
+3. **Ransom Note Drop**  
    A ransom note is created on the desktop with fake BTC address and contact email.
 
 ---
@@ -55,7 +51,6 @@ This is a **Windows-compatible ransomware PoC** written in **Rust**, intended fo
 ```
 sudo apt update && sudo apt install build-essential pkg-config libssl-dev -y
 ```
-- Optional: [Python](https://www.python.org/) (for running a dummy C2 server)
 
 ### 2. 📦 Dependencies
 
